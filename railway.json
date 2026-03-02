@@ -4,8 +4,7 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "cd backend && gunicorn hrms.wsgi --bind 0.0.0.0:$PORT --workers 2",
-    "healthcheckPath": "/api/dashboard/",
+    "startCommand": "cd backend && chmod +x ./start.sh && ./start.sh",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 3
   }
