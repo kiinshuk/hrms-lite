@@ -3,8 +3,9 @@
 A lightweight, full-stack HR Management System built with **React** (frontend) and **Django REST Framework** (backend).
 
 ## 🚀 Live Demo
-- **Frontend:** *(Deploy URL here)*
-- **Backend API:** *(Deploy URL here)*
+- **Frontend:** *(Deploy to Vercel – see Deployment section below)*
+- **Backend API:** *(Deploy to Render – see Deployment section below)*
+- **GitHub:** https://github.com/kiinshuk/hrms-lite
 
 ## 🛠️ Tech Stack
 
@@ -115,16 +116,31 @@ npm run dev
 
 ## 📦 Deployment
 
-### Backend (Render)
-1. Connect GitHub repo to Render
-2. Set **Build Command:** `./build.sh`
-3. Set **Start Command:** `gunicorn hrms.wsgi`
-4. Set environment variable: `DEBUG=False`
+### Backend (Render) – Option A: render.yaml (Auto)
+The repo includes a `render.yaml` at the root. On [render.com](https://render.com):
+1. Click **New → Blueprint**
+2. Connect your GitHub repo (`kiinshuk/hrms-lite`)
+3. Render will auto-detect `render.yaml` and provision the web service + PostgreSQL database
+4. Wait for build to complete — your backend URL will be shown in the dashboard
+
+### Backend (Render) – Option B: Manual
+1. Go to [render.com](https://render.com) → **New → Web Service**
+2. Connect GitHub repo, set **Root Directory:** `backend`
+3. **Build Command:** `./build.sh`
+4. **Start Command:** `gunicorn hrms.wsgi`
+5. Add environment variables:
+   - `DEBUG=False`
+   - `DATABASE_URL=<your-postgres-url>` (create a free Render PostgreSQL DB)
 
 ### Frontend (Vercel)
-1. Connect GitHub repo to Vercel
-2. Set **Root Directory:** `frontend`
-3. Set environment variable: `VITE_API_URL=<your-render-backend-url>`
+1. Go to [vercel.com](https://vercel.com) → **New Project**
+2. Import GitHub repo `kiinshuk/hrms-lite`
+3. Set **Root Directory:** `frontend`
+4. Add environment variable:
+   - `VITE_API_URL=https://<your-render-backend>.onrender.com`
+5. Click **Deploy**
+
+> ⚠️ Make sure to update `VITE_API_URL` to your actual Render backend URL before deploying the frontend.
 
 ## ⚠️ Assumptions & Limitations
 - Single admin user — no authentication required
