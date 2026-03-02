@@ -1,0 +1,15 @@
+[phases.setup]
+nixPkgs = ["python312", "postgresql"]
+
+[phases.install]
+cmds = ["pip install -r requirements.txt"]
+
+[phases.build]
+cmds = [
+  "python manage.py collectstatic --no-input",
+  "python manage.py migrate",
+  "python manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); u = User.objects.filter(username='admin').first(); (u and (u.set_password('Admin@1234') or True)) or User.objects.create_superuser('admin', 'admin@hrms.com', 'Admin@1234'); u2 = User.objects.get(username='admin'); u2.is_staff=True; u2.is_superuser=True; u2.is_active=True; u2.save(); print('Admin ready')\""
+]
+
+[start]
+cmd = "gunicorn hrms.wsgi --bind 0.0.0.0:$PORT --workers 2"

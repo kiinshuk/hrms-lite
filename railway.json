@@ -1,0 +1,13 @@
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS"
+  },
+  "deploy": {
+    "buildCommand": "cd backend && pip install -r requirements.txt && python manage.py collectstatic --no-input && python manage.py migrate && python manage.py shell -c \"from django.contrib.auth import get_user_model; User = get_user_model(); u = User.objects.filter(username='admin').first(); u and u.set_password('Admin@1234') or (u := User.objects.create_superuser('admin', 'admin@hrms.com', 'Admin@1234')); u.is_staff=True; u.is_superuser=True; u.is_active=True; u.save(); print('Admin ready')\"",
+    "startCommand": "cd backend && gunicorn hrms.wsgi --bind 0.0.0.0:$PORT",
+    "healthcheckPath": "/api/dashboard/",
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 3
+  }
+}
