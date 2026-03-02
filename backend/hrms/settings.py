@@ -10,7 +10,7 @@ SECRET_KEY = os.environ.get(
     'django-insecure-hrms-lite-2025-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 )
 
-DEBUG = os.environ.get('DEBUG', 'True') == 'True'
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
