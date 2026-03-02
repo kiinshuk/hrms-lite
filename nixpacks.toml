@@ -10,4 +10,4 @@ cmds = [
 ]
 
 [start]
-cmd = "cd backend && chmod +x ./start.sh && ./start.sh"
+cmd = "gunicorn hrms.wsgi --bind 0.0.0.0:$PORT --workers 2"

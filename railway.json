@@ -4,7 +4,8 @@
     "builder": "NIXPACKS"
   },
   "deploy": {
-    "startCommand": "cd backend && python manage.py migrate && python manage.py shell -c \"from django.contrib.auth import get_user_model; U=get_user_model(); u=U.objects.filter(username='admin').first(); u and u.set_password('Admin@1234') or U.objects.create_superuser('admin','admin@hrms.com','Admin@1234'); u2=U.objects.get(username='admin'); u2.is_staff=True; u2.is_superuser=True; u2.is_active=True; u2.save()\" && gunicorn hrms.wsgi --bind 0.0.0.0:${PORT:-8000} --workers 2",
+    "preDeployCommand": "python manage.py migrate",
+    "startCommand": "gunicorn hrms.wsgi --bind 0.0.0.0:$PORT --workers 2",
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 3
   }
