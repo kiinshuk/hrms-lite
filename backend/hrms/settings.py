@@ -10,7 +10,7 @@ SECRET_KEY = os.environ.get(
     'django-insecure-hrms-lite-2025-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
 )
 
-DEBUG = True  # Temporarily enabled to diagnose 500 error on Railway
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
