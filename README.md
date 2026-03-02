@@ -14,7 +14,7 @@ A lightweight, full-stack HR Management System built with **React** (frontend) a
 | Frontend | React 19, React Router v7, Axios, Vite |
 | Backend | Django 4.2, Django REST Framework, django-cors-headers |
 | Database | SQLite (local) / PostgreSQL (production) |
-| Deployment | Vercel (Frontend), Render (Backend) |
+| Deployment | Vercel (Frontend), Railway(Backend) |
 
 ## ✅ Features
 
@@ -113,37 +113,3 @@ npm run dev
 | GET | `/api/attendance/?employee_id=&date=` | Filter attendance |
 | POST | `/api/attendance/` | Mark attendance |
 | GET | `/api/dashboard/` | Dashboard summary stats |
-
-## 📦 Deployment
-
-### Backend (Render) – Option A: render.yaml (Auto)
-The repo includes a `render.yaml` at the root. On [render.com](https://render.com):
-1. Click **New → Blueprint**
-2. Connect your GitHub repo (`kiinshuk/hrms-lite`)
-3. Render will auto-detect `render.yaml` and provision the web service + PostgreSQL database
-4. Wait for build to complete — your backend URL will be shown in the dashboard
-
-### Backend (Render) – Option B: Manual
-1. Go to [render.com](https://render.com) → **New → Web Service**
-2. Connect GitHub repo, set **Root Directory:** `backend`
-3. **Build Command:** `./build.sh`
-4. **Start Command:** `gunicorn hrms.wsgi`
-5. Add environment variables:
-   - `DEBUG=False`
-   - `DATABASE_URL=<your-postgres-url>` (create a free Render PostgreSQL DB)
-
-### Frontend (Vercel)
-1. Go to [vercel.com](https://vercel.com) → **New Project**
-2. Import GitHub repo `kiinshuk/hrms-lite`
-3. Set **Root Directory:** `frontend`
-4. Add environment variable:
-   - `VITE_API_URL=https://<your-render-backend>.onrender.com`
-5. Click **Deploy**
-
-> ⚠️ Make sure to update `VITE_API_URL` to your actual Render backend URL before deploying the frontend.
-
-## ⚠️ Assumptions & Limitations
-- Single admin user — no authentication required
-- SQLite used locally; configure PostgreSQL for production via `DATABASE_URL`
-- Leave, payroll, and advanced HR features are out of scope
-- All times stored in UTC
