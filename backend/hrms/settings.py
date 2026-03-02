@@ -15,6 +15,11 @@ DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '*').split(',')
 
+# Railway specific
+RAILWAY_STATIC_URL = os.environ.get('RAILWAY_STATIC_URL', '')
+if RAILWAY_STATIC_URL:
+    ALLOWED_HOSTS.append(RAILWAY_STATIC_URL)
+
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
